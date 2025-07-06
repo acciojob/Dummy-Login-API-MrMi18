@@ -51,6 +51,7 @@ const App = () => {
             setEmail("");
             setPassword("");
             setErrorMessage("")
+            setId("")
         },3000)
 
     }
@@ -59,6 +60,7 @@ const App = () => {
         <form onSubmit={onSubmit}>
             <label htmlFor='email'>Email</label>
             <input id='input-email' type='text' value={email} onChange={(e) => setEmail (e.target.value)}/>
+           
             <br/>
             <br/>
             <label htmlFor='password'>Password</label>
