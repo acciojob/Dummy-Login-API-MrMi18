@@ -24,9 +24,10 @@ const App = () => {
     const [ password , setPassword] = useState("")
     const[errorMessage,setErrorMessage] = useState("");
     const [id,setId] = useState("")
-    const onsubmit = () =>{
+    const onSubmit = (e) =>{
+        e.preventDefault()
         const data = userData.filter(dt => dt.email === email);
-        if(!data){
+        if(data.length==0){
             setErrorMessage("User not found")
             setId("user-error")
             setTimeout(() =>{
@@ -37,7 +38,7 @@ const App = () => {
         }
         const pass = userData.filter(dt => dt.email === email && dt.password === password);
         setId("password-error");
-        if(!pass){
+        if(pass.length===0){
             setErrorMessage("Password Incorrect")
             setTimeout(() =>{
                 console.log(errorMessage);
@@ -46,20 +47,25 @@ const App = () => {
             return;
         }
         setTimeout(()=>{
-            console.log(data);
+            console.log(data[0]);
             setEmail("");
             setPassword("");
+            setErrorMessage("")
         },3000)
 
     }
   return (
     <div>
-        <form>
+        <form onSubmit={onSubmit}>
+            <label htmlFor='email'>Email</label>
             <input id='input-email' type='text' value={email} onChange={(e) => setEmail (e.target.value)}/>
-            
-            <input id='nput-password' type='password' value={password} onChange={(e) => setPassword (e.target.value)}/>
+            <br/>
+            <br/>
+            <label htmlFor='password'>Password</label>
+            <input id='input-password' type='password' value={password} onChange={(e) => setPassword (e.target.value)}/>
+            <br/>
             {errorMessage &&  <p id={id} >{errorMessage}</p>}
-            <button onClick={onsubmit} type='submit' id='submit-form-btn' >Submit</button>
+            <button type='submit' id='submit-form-btn' >Submit</button>
         </form>
 
     </div>
